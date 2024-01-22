@@ -8,14 +8,15 @@ import { Component, Renderer2 } from '@angular/core';
 export class SidebarComponent {
   showSideBar: boolean = false;
   isMenuOpen: boolean = false;
-  isCollapsed: boolean = false;
+  isClosed: boolean = false;
+  
 
   constructor(){
 
   }
 
-  collapseItems(){
-    this.isCollapsed = !this.isCollapsed;
+  isClosedItems(){
+    this.isClosed = !this.isClosed;
   }
   toggleMenu(){
     this.isMenuOpen = !this.isMenuOpen;

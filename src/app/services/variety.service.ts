@@ -10,20 +10,20 @@ import { environment } from "src/environments/environment";
 export class VarietyService {
 
   constructor(private http:HttpClient) { }
-  getAll(): Observable<Variety[]> {
+  get(): Observable<Variety[]> {
     return this.http.get<Variety[]>(environment.urlApiV);
   }
 
-  public get():Observable<Array<Variety>> {
-    return this.http.get<Array<Variety>>(`${environment.urlApiV}`);
+  // public get():Observable<Variety> {
+  //   return this.http.get<Variety>(`${environment.urlApiV}`);
+  // }
+
+  public create(data:Variety):Observable<Variety> {
+    return this.http.post<Variety>(environment.urlApiV,data);
   }
 
-  public create(variety:Variety):Observable<Array<Variety>> {
-    return this.http.post<Array<Variety>>(environment.urlApiV,variety);
-  }
-
-  delete(variety: Variety){
-    return this.http.delete<any>(`${environment.urlApiV}`+variety.idVariety);
+  delete(id: number){
+    return this.http.delete<any>(`${environment.urlApiV}/${id}`);
   }
 
   update(id: number, data: Variety): Observable<Variety> {

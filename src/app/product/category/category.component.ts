@@ -40,7 +40,7 @@ export class CategoryComponent implements OnInit {
       this.serviceCategory.getAll().subscribe(
         (data)=>{
           this.categories = data
-          console.log(data)
+          console.log(data, "dddddddddddddddddddddddddddddddddd")
       })
     }
 
@@ -74,6 +74,7 @@ export class CategoryComponent implements OnInit {
       }}
       
   editCategory(category: Category) {
+    this.selectedCategoryId=category.idCategory
         this.isEditing = true;
         this.categoryForm.patchValue({
           nomCategory: category.nomCategory
@@ -85,10 +86,15 @@ export class CategoryComponent implements OnInit {
 selectedCategoryId: number | null = null; 
 
 updateCategory() {
+  console.log("string", this.selectedCategoryId, this.categoryForm.value, this.categories)
   if (this.selectedCategoryId) {
     this.serviceCategory.update(this.selectedCategoryId, this.categoryForm.value).subscribe(
       (res) => {
         console.log('API Response:', res);
+        const idx = this.categories.findIndex((category)=>{
+          return category.idCategory== res.idCategory
+        })  
+        this.categories[idx]=res
         this.categoryForm.reset();
         this.closeModal(); 
       },

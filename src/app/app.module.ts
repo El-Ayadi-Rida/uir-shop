@@ -12,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SuppliersComponent } from './product/suppliers/suppliers.component';
 const routes : Routes = [
   {
     path:'' , component:HomeComponent, children:[
@@ -19,7 +20,9 @@ const routes : Routes = [
       {path:'category' , component:CategoryComponent},
       {path:'variety' , component:VarietyComponent},
       {path:'delivery' , component:DeliveryComponent},
-      {path:'orders' , component:OrdersComponent}
+      {path:'orders' , component:OrdersComponent},
+      {path:'supplier' , component:SuppliersComponent},
+      {path:'**' , component:HomeComponent}
     ]
   }
 ]
@@ -33,7 +36,8 @@ const routes : Routes = [
     DeliveryComponent,
     OrdersComponent,
     HomeComponent,
-    AddProductComponent
+    AddProductComponent,
+    SuppliersComponent
   ],
   imports: [
     BrowserModule,

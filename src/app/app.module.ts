@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SuppliersComponent } from './suppliers/suppliers.component';
+import { SuppliersComponent } from './product/suppliers/suppliers.component';
 const routes : Routes = [
   {
     path:'' , component:HomeComponent, children:[

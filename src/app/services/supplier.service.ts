@@ -26,7 +26,9 @@ export class SupplierService {
   }
 
   updateSupplier(id: number, data: Supplier): Observable<Supplier> {
+    console.log("ff",data)
     return this.http.put<Supplier>(`${environment.urlApiS}/${id}`, data);
+    
   }
 
 

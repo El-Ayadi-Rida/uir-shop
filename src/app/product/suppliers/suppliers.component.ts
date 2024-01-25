@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/products';
 import { ProductsService } from 'src/app/services/products.service';
+import { ProductObject } from 'src/app/models/productOjbect';
 
 @Component({
   selector: 'app-suppliers',
@@ -102,29 +103,49 @@ export class SuppliersComponent implements OnInit{
     editSupplier(supplier: Supplier) {
       this.selectedSupplierId = supplier.idSupplier;
       this.isEditing = true;
-      
       // Set the selected products in the form based on the supplier's products
-      const selectedProducts = supplier.products.map(product => product.idProduct); // Assuming each product has an 'id' property
       this.SupplierForm.patchValue({
         nomSupplier: supplier.nomSupplier,
         mail: supplier.mail,
         rib: supplier.rib,
         phoneNumber: supplier.phoneNumber,
-        products: supplier.products // Set the selected products here
+        //products: this.tOproductObject(supplier.products)
+        products: this.tOproductObject(this.SupplierForm.value.products)
       });
     
       this.toggleModal();
     }
+    tOproductObject(list:number[]) :ProductObject[]
+    {
+      const newlist:ProductObject[] = [];
+      for (let i = 0; i < list.length; i++) {
+        const obj = {idProduct:list[i]};
+        newlist.push(obj); 
+      }
+      return newlist;
+    }
 
-
+    onChangePrdSelected(event: any) {
+  console.log(this.tOproductObject(this.SupplierForm.value.products));
+  
+    }
 
 
 selectedSupplierId: number | null = null; 
 updateSupplier() {
-  console.log("string", this.selectedSupplierId, this.SupplierForm.value, this.suppliers);
+  const updatedobject:Supplier = {idSupplier:this.SupplierForm.value.idSupplier,
+    nomSupplier: this.SupplierForm.value.nomSupplier,
+    mail: this.SupplierForm.value.mail,
+    rib:this.SupplierForm.value.rib,
+    phoneNumber:this.SupplierForm.value.phoneNumber,
+    products:this.tOproductObject(this.SupplierForm.value.products)
+  
+  };
+  console.log("string", this.selectedSupplierId, updatedobject, this.suppliers);
   
   if (this.selectedSupplierId && this.SupplierForm.valid) {
-    this.supplierService.updateSupplier(this.selectedSupplierId, this.SupplierForm.value).subscribe(
+
+    this.supplierService.updateSupplier(this.selectedSupplierId,updatedobject).subscribe(
       (res) => {
         console.log('API Response:', res);
         const idx = this.suppliers.findIndex((supplier) => supplier.idSupplier === res.idSupplier);
@@ -139,5 +160,6 @@ updateSupplier() {
     );
   }
 }
+
 
 }

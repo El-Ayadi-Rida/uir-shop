@@ -1,3 +1,4 @@
+import { ProductObject } from "./productOjbect";
 import { Product } from "./products";
 
 export interface Supplier{
@@ -6,6 +7,6 @@ nomSupplier: string;
 mail: string;
 rib: string;
 phoneNumber: string;
-products: Product[];
+products: ProductObject[];
 
 }

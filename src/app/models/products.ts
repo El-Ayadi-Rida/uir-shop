@@ -11,8 +11,8 @@ export interface Product{
     prixProduct:	number;
     category:	Category ;
     supplier: Supplier;
-    etiquettes	: Etiquette[];
+    //etiquettes	: Etiquette[];
     varieties :	Variety[];
-    imgs	:string;
-    colors	:string;
+    imgs	:string[];
+    //colors	:string;
     }

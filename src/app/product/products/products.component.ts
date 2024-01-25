@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
+  isUpdated: boolean = false;
+  isCreateNewProduct: boolean = false;
+
+  toggleUpdate(){
+    this.isUpdated = !this.isUpdated;
+  }
+  toggleCreateProduct(){
+    this.isCreateNewProduct = !this.isCreateNewProduct;
+  }
 
 }

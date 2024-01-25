@@ -121,7 +121,7 @@ updateVariety() {
         this.closeModal(); 
       },
       (error) => {
-        console.error('Error updating category:', error);
+        console.error('Error updating supplier:', error);
       }
     );
   }

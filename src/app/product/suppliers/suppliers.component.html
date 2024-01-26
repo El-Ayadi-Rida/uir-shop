@@ -125,6 +125,7 @@
                                         <option *ngFor="let product of products" 
                                         [ngValue]="product.idProduct"
                                         >
+                                     <!-- '{"idProduct":product.idProduct}' -->
                                         {{ product.idProduct }}</option>
                                     </select>
                                     <div *ngIf="SupplierForm.get('products')?.hasError('required') && SupplierForm.get('products')?.touched">

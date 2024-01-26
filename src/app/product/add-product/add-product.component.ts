@@ -5,6 +5,7 @@ import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/products';
 import { Supplier } from 'src/app/models/supplier';
 import { CategoryService } from 'src/app/services/category.service';
+import { ProductsService } from 'src/app/services/products.service';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { VarietyService } from 'src/app/services/variety.service';
 
@@ -18,8 +19,9 @@ export class AddProductComponent implements OnInit{
   Categories!: Category[];
   Suppliers!: Supplier[];
   Varieties!: Variety[];
+  Products!: Product[];
   CurrentImages: string[] = [];
-  constructor(private fb:FormBuilder,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){}
+  constructor(private fb:FormBuilder,private ProductService: ProductsService,private CategoryService:CategoryService , private SupplierService:SupplierService , private VarietyService:VarietyService){}
   ngOnInit(): void {
     this.getAllCategory();
     this.getAllSupplier();
@@ -39,18 +41,29 @@ export class AddProductComponent implements OnInit{
   addProduct(){
     if (this.NewProductForm.valid) {
       const newProduct : Product = {
-        idProduct: 0,
+        idProduct: 0, 
         nomProduct: this.NewProductForm.value.productName,
         description: this.NewProductForm.value.description,
         reference: this.NewProductForm.value.reference,
         prixProduct: this.NewProductForm.value.prixProduct,
-        category: this.NewProductForm.value.categoryID,
-        supplier: this.NewProductForm.value.supplierID,
-        varieties: this.NewProductForm.value.varietyIDs,
+        categoryID: this.NewProductForm.value.categoryID,
+        supplierID: this.NewProductForm.value.supplierID,
+        varietyIDs: this.NewProductForm.value.varietyIDs,
         imgs: this.getImgs(),
         quantity: this.NewProductForm.value.quantity,
       }
       console.log(newProduct);
+      this.ProductService.create(newProduct).subscribe(
+        (addProduct) => {
+          // this.Products.push(addProduct);
+          // Reset the form after adding the category
+          this.NewProductForm.reset();
+          
+        },
+        (error) => {
+          console.error('Error adding category:', error);
+        }
+      );
       
     }
     console.log(this.NewProductForm.value.files);

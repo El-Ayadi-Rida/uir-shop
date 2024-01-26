@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/products';
@@ -10,14 +10,28 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit{
   isUpdated: boolean = false;
   isCreateNewProduct: boolean = false;
+  products!: Product[] ;
+  constructor(public productService: ProductsService){
 
+  }
+  ngOnInit(): void {
+    this.getAllProduct();
+    
+  }
   toggleUpdate(){
     this.isUpdated = !this.isUpdated;
   }
   toggleCreateProduct(){
     this.isCreateNewProduct = !this.isCreateNewProduct;
+  }
+  getAllProduct() {
+    this.productService.getAll().subscribe(
+      (data)=>{
+        this.products = data
+        console.log(data)
+    })
   }
   }

@@ -40,8 +40,8 @@ export class AddProductComponent implements OnInit{
   } 
   addProduct(){
     if (this.NewProductForm.valid) {
-      const newProduct : Product = {
-        idProduct: 0, 
+      const newProduct : any = {
+        idProduct: 0,
         nomProduct: this.NewProductForm.value.productName,
         description: this.NewProductForm.value.description,
         reference: this.NewProductForm.value.reference,
@@ -52,13 +52,12 @@ export class AddProductComponent implements OnInit{
         imgs: this.getImgs(),
         quantity: this.NewProductForm.value.quantity,
       }
-      console.log(newProduct);
+      console.log("prod",newProduct);
       this.ProductService.create(newProduct).subscribe(
         (addProduct) => {
           // this.Products.push(addProduct);
           // Reset the form after adding the category
           this.NewProductForm.reset();
-          
         },
         (error) => {
           console.error('Error adding category:', error);

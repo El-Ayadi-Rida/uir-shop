@@ -4,15 +4,15 @@ import { Etiquette } from "./etiquette"
 import { Supplier } from "./supplier"
 
 export interface Product{
-    idProduct:    number;
+    idProduct:	number;
     nomProduct:	string;
     description:	string;
     reference	:string;
     prixProduct:	number;
-    categoryID:	number ;
-    supplierID: number;
+    category:	Category ;
+    supplier: Supplier;
     //etiquettes	: Etiquette[];
-    varietyIDs :	number[];
+    varieties :	Variety[];
     imgs	:string[];
     quantity: number;
     //colors	:string;

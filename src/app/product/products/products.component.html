@@ -30,53 +30,74 @@
                     <span class="sr-only">Image</span>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Product
+                    Product name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Qty
+                    descripion
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Price
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    quantity
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    reference
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    category
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    supplier
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    variety
+                </th>
+            
+                <th scope="col" class="px-6 py-3">
                     Action
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let product of products"  >
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="p-4">
-                    <img src="https://flowbite.com/docs/images/products/imac.png" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                    <img src="{{product.imgs}}" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                </td>
+              
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{product.nomProduct}}
                 </td>
                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    Apple Watch
-                </td>
-                <td class="px-6 py-4">
-                    <div class="flex items-center">
-                        <button class="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                            <span class="sr-only">Quantity button</span>
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
-                            </svg>
-                        </button>
-                        <div>
-                            <input type="number" id="first_product" class="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required>
-                        </div>
-                        <button class="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-                            <span class="sr-only">Quantity button</span>
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                            </svg>
-                        </button>
-                    </div>
+                    {{product.description}}
                 </td>
                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    $599
+                    {{product.prixProduct}}
                 </td>
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{product.quantity}}
+                </td>
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{product.reference}}
+                </td>
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{product.category.nomCategory}}
+                </td>
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{product.supplier.nomSupplier}}
+                </td>
+                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                   <ul>
+                    <li *ngFor="let varr of product.varieties">
+                        {{varr.varietyName}}
+                    </li>
+                   </ul>
+                </td>
+                
+
                 <td class="px-6 py-4">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#ff0000" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                      </svg>                    
+                    <button (click)="deleteProduct(product.idProduct)" class="font-medium text-red-600 dark:text-red-500 hover:underline ml-8">Remove</button> 
+                   
                 </td>
             </tr>
         </tbody>

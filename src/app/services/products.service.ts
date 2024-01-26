@@ -18,8 +18,8 @@ export class ProductsService {
     return this.http.get<Product>(`${environment.urlApiP}/${id}`);
   }
 
-  create(data: Product): Observable<Product> {
-    return this.http.post<Product>(environment.urlApiP, data);
+  create(data: any): Observable<any> {
+    return this.http.post<any>(environment.urlApiP, data);
   }
 
   update(id: number, data: Product): Observable<Product> {

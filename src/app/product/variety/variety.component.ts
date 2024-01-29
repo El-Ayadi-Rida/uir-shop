@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Variety } from 'src/app/models/Variety';
+import { Product } from 'src/app/models/products';
+import { ProductsService } from 'src/app/services/products.service';
 import { VarietyService } from 'src/app/services/variety.service';
 
 @Component({
@@ -12,9 +14,10 @@ export class VarietyComponent  implements OnInit{
 
 
   varietys: Variety[]=[];
+  products:Array<Product>=[]
   VarietyForm!: FormGroup;  
 
-  constructor(private fb:FormBuilder,private varietyService: VarietyService) { }
+  constructor(private fb:FormBuilder,private varietyService: VarietyService, private productService:ProductsService) { }
   visible: boolean = false;
   isEditing : boolean = false
   
@@ -31,13 +34,25 @@ export class VarietyComponent  implements OnInit{
 
   ngOnInit(): void {
     this.getVarietys();
+    this.getAllProduct();
     this.VarietyForm = this.fb.group({
       // idVariety: ['', [Validators.required]],
       varietyName: ['', [Validators.required]],
-      varietyValue: ['', [Validators.required]],
+      color: ['', [Validators.required]],
+      size: ['', [Validators.required]],
+      storage: ['', [Validators.required]],
       quantity: ['', [Validators.required]],
+      prix: ['', [Validators.required]],
+      productID:['', [Validators.required]]
 
       });
+  }
+  getAllProduct() {
+    this.productService.getAll().subscribe(
+      (data)=>{
+        this.products = data
+        //console.log(data)
+    })
   }
 
   getVarietys(){
@@ -53,24 +68,20 @@ export class VarietyComponent  implements OnInit{
     this.selectedVarietyId=variety.idVariety
     this.isEditing = true;
     this.VarietyForm.patchValue({
+     
       varietyName: variety.varietyName,
-      varietyValue : variety.varietyValue,
-      quantity:variety.quantity
+      color: variety.color,
+      size: variety.size,
+      storage: variety.storage,
+      quantity: variety.quantity,
+      prix: variety.prix,
+      productID: variety.productID
     });
     this.toggleModal();
   }
 
 
-  // addVariety(){
-  //   let Variety:Variety = this.VarietyForm.value;
-  //   this.varietyService.create(Variety).subscribe({
-  //     next:data=>{
-  //       alert(JSON.stringify(data));
-  //     }, error:error=>{
-  //       console.log(error);
-  //     }
-  //   })
-  // }
+
 
   addVariety() {
     console.log('Form is valid:', this.VarietyForm.valid);
@@ -78,8 +89,12 @@ export class VarietyComponent  implements OnInit{
       const newVariety: Variety = {
         idVariety: 0, // Set a temporary value or handle it on the server
         varietyName: this.VarietyForm.value.varietyName,
-        varietyValue: this.VarietyForm.value.varietyValue,
-        quantity : this.VarietyForm.value.quantity
+        color: this.VarietyForm.value.color,
+        size: this.VarietyForm.value.size,
+        storage: this.VarietyForm.value.storage,
+        quantity: this.VarietyForm.value.quantity,
+        prix: this.VarietyForm.value.prix,
+        productID: this.VarietyForm.value.productID
       };
 
       this.varietyService.create(newVariety).subscribe(
@@ -121,7 +136,7 @@ updateVariety() {
         this.closeModal(); 
       },
       (error) => {
-        console.error('Error updating supplier:', error);
+        console.error('Error updating Variety:', error);
       }
     );
   }

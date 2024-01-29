@@ -1,6 +1,10 @@
 export interface Variety{
     idVariety :	number;
     varietyName	: string;
-    varietyValue: string;
-    quantity: number ;
+    color: string;
+    size: string ;
+    storage: string;
+    quantity: number;
+    prix: number;
+    productID:number;
     }

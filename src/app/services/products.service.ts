@@ -22,8 +22,8 @@ export class ProductsService {
     return this.http.post<any>(environment.urlApiP, data);
   }
 
-  update(id: number, data: Product): Observable<Product> {
-    return this.http.put<Product>(`${environment.urlApiP}/${id}`, data);
+  update(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${environment.urlApiP}/${id}`, data);
   }
 
   delete(id: number): Observable<Product> {

@@ -38,12 +38,8 @@ export class VarietyComponent  implements OnInit{
     this.VarietyForm = this.fb.group({
       // idVariety: ['', [Validators.required]],
       varietyName: ['', [Validators.required]],
-      color: ['', [Validators.required]],
-      size: ['', [Validators.required]],
-      storage: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
-      prix: ['', [Validators.required]],
-      productID:['', [Validators.required]]
+      varietyValue: ['', [Validators.required]],
+      quantity: ['', [Validators.required]]
 
       });
   }
@@ -70,12 +66,8 @@ export class VarietyComponent  implements OnInit{
     this.VarietyForm.patchValue({
      
       varietyName: variety.varietyName,
-      color: variety.color,
-      size: variety.size,
-      storage: variety.storage,
+      varietyValue: variety.varietyValue,
       quantity: variety.quantity,
-      prix: variety.prix,
-      productID: variety.productID
     });
     this.toggleModal();
   }
@@ -89,18 +81,14 @@ export class VarietyComponent  implements OnInit{
       const newVariety: Variety = {
         idVariety: 0, // Set a temporary value or handle it on the server
         varietyName: this.VarietyForm.value.varietyName,
-        color: this.VarietyForm.value.color,
-        size: this.VarietyForm.value.size,
-        storage: this.VarietyForm.value.storage,
+        varietyValue: this.VarietyForm.value.varietyValue,
         quantity: this.VarietyForm.value.quantity,
-        prix: this.VarietyForm.value.prix,
-        productID: this.VarietyForm.value.productID
+       
       };
 
       this.varietyService.create(newVariety).subscribe(
         (addedVariety) => {
           this.varietys.push(addedVariety);
-          // Reset the form after adding the category
           this.VarietyForm.reset();
           this.closeModal();
           console.log(addedVariety)

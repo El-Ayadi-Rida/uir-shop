@@ -175,31 +175,60 @@
                                 product reference is required.
                               </div>   
                         </div>
-                        <div  class="col-span-2">
-                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                            <select name="category" id="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                <option *ngFor="let cat of Categories" [ngValue]="cat.idCategory">{{ cat.nomCategory }}</option>
+                        
+                        <div class="col-span-2">
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> category:</label>
+                            <select  name="category" id="category" 
+                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" formControlName="categoryID">
+                                <option *ngFor="let category of Categories" 
+                                [ngValue]="category.idCategory">
+                                {{ category.nomCategory }}</option>
                             </select>
-                        </div>
-                        <div  class="col-span-2">
-                            <label for="supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">supplier</label>
-                            <select name="supplier" id="supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                <option *ngFor="let supp of Suppliers" [ngValue]="supp.idSupplier">{{ supp.nomSupplier }}</option>
-                            </select>
-                        </div>
-                        <div  class="col-span-2">
-                            <label for="variety" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">variety</label>
-                            <select name="variety" id="variety" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                <option *ngFor="let varr of Varieties" [ngValue]="varr.idVariety">{{ varr.varietyName }}</option>
-                            </select>
+                            <div *ngIf="ProductForm.get('category')?.hasError('required') && ProductForm.get('category')?.touched">
+                                category is required.
+                            </div>
                         </div>
                         <div class="col-span-2">
-                            <label for="imgs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">imgs:</label>
-                            <input type="text" name="imgs" id="imgs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                            placeholder="" required="" formControlName="imgs" >
-                            <div *ngIf="ProductForm.get('imgs')?.hasError('required') && ProductForm.get('imgs')?.touched">
-                                product imgs is required.
-                              </div>   
+                            <label for="supplier" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> supplier:</label>
+                            <select  name="supplier" id="supplier" 
+                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" formControlName="supplierID">
+                                <option *ngFor="let supplier of Suppliers" 
+                                [ngValue]="supplier.idSupplier">
+                                {{ supplier.idSupplier }}</option>
+                            </select>
+                            <div *ngIf="ProductForm.get('supplier')?.hasError('required') && ProductForm.get('supplier')?.touched">
+                                supplier is required.
+                            </div>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="varieties" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> varieties:</label>
+                            <select  multiple name="varieties" id="varieties" 
+                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" formControlName="varietyIDs">
+                                <option *ngFor="let variety of Varieties" 
+                                [value]="variety.idVariety">
+                                {{ variety.varietyName }}</option>
+                            </select>
+                            <div *ngIf="ProductForm.get('varieties')?.hasError('required') && ProductForm.get('varieties')?.touched">
+                                variety is required.
+                            </div>
+                        </div>
+                        
+                        <div class="col-span-2">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="imgs" type="file" class="" 
+                                formControlName="imgs"
+                                name="imgs"
+                                multiple
+                                (change)="onFileChange($event)"
+                                />
+                            </label>
                         </div>
                         
                     </div>

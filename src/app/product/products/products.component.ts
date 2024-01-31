@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit{
   products!: Product[] ;
   Categories!: Category[];
   Suppliers!: Supplier[];
+  
+  CurrentImages: string[] = [];
   Varieties!: Variety[];
   public ProductForm!:FormGroup;
 
@@ -47,9 +49,9 @@ export class ProductsComponent implements OnInit{
       reference:['', [Validators.required]],
       description:['', [Validators.required]],
       prixProduct:['', [Validators.required]],
-      category:['', [Validators.required]],
-      supplier:['', [Validators.required]],
-      varieties:['', [Validators.required]],
+      categoryID:['', [Validators.required]],
+      supplierID:['', [Validators.required]],
+      varietyIDs:['', [Validators.required]],
       quantity:['', [Validators.required]],
       imgs:['', [Validators.required]],
     });
@@ -100,7 +102,17 @@ export class ProductsComponent implements OnInit{
       });
     }}
 
-    editProduct(product: Product) {
+    getImgs():string[]{
+      return this.CurrentImages; 
+    }
+    onFileChange(event: any) {
+      const selectedFiles: FileList = event.target.files;
+      for (let index = 0; index < selectedFiles.length; index++) {
+        const file:File = selectedFiles[index];
+        this.CurrentImages.push(file.name.toString());
+      }
+    }
+    editProduct(product: any) {
       this.isEditing = true;
       this.selectedProductId=product.idProduct
 
@@ -109,9 +121,9 @@ export class ProductsComponent implements OnInit{
         description: product.description,
         reference: product.reference,
         prixProduct: product.prixProduct,
-        category: product.category,
-        supplier: product.supplier,
-        varieties: product.varieties,
+        categoryID: product.categoryID,
+        supplierID: product.supplierID,
+        varietyIDs: product.varietyIDs,
         quantity: product.quantity,
         imgs: product.imgs
 

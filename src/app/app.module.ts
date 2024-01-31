@@ -13,6 +13,7 @@ import { AddProductComponent } from './product/add-product/add-product.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SuppliersComponent } from './product/suppliers/suppliers.component';
+import { DeliveryService } from './services/delivery.service';
 const routes : Routes = [
   {
     path:'' , component:HomeComponent, children:[
@@ -45,7 +46,7 @@ const routes : Routes = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DeliveryService],
   bootstrap: [AppComponent],
   exports:[
     RouterModule
